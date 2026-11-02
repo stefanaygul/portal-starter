@@ -1,5 +1,6 @@
 [
   { "code": "ADP-01", "name": "Terminal adaptörü" },
   { "code": "KBL-02", "name": "Bağlantı kablosu" },
-  { "code": "STD-03", "name": "Cihaz standı" }
+  { "code": "STD-03", "name": "Cihaz standı" },
+  { "code": "SRJ-04", "name": "Hızlı şarj" }
 ]
