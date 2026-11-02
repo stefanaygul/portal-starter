@@ -1,0 +1,5 @@
+# deploy/compose.yaml - Saha Ekipman Talep Portalı
+#
+# Bu dosya şimdilik yalnızca bir iskelettir; 3. gün (LAB 03-B) doldurulacak.
+# Üç servisi (product-service, order-service, web-ui), aralarındaki ağı ve
+# taleplerin saklandığı kalıcı veriyi tek dosyada tanımlayacak.
