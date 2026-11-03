@@ -1,0 +1,14 @@
+# .gitlab/CODEOWNERS
+# Dosya yoluna göre sahibi belirler. Code Owners, GitLab Premium/Ultimate özelliğidir;
+# Free katmanında dosya repoda durur ama GitLab onu değerlendirmez.
+# NN yerine ekip numaranız gelir (ekip-01 için 01).
+
+[Backend]
+/src/product-service/   @egitim/ekip-NN
+/src/order-service/     @egitim/ekip-NN
+
+[Frontend]
+/src/web-ui/            @egitim/ekip-NN
+
+[Pipeline]
+Jenkinsfile             @ekipNN-lead
