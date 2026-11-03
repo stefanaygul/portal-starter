@@ -15,6 +15,11 @@ public static class OrderEndpoints
 
     private static async Task<IResult> CreateAsync(CreateOrderRequest request, OrdersDbContext db)
     {
+        if (string.IsNullOrWhiteSpace(request.ProductId))
+        {
+            return Results.BadRequest(new { error = "Ekipman kodu boş olamaz." });
+        }
+
         var order = new Order
         {
             ProductId = request.ProductId,
