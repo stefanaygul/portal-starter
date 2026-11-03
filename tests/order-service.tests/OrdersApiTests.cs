@@ -24,6 +24,18 @@ public class OrdersApiTests(OrderApiFactory factory) : IClassFixture<OrderApiFac
         Assert.Equal($"/api/orders/{order.Id}", response.Headers.Location?.ToString());
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public async Task Post_order_without_a_product_id_returns_400(string productId)
+    {
+        var response = await _client.PostAsJsonAsync(
+            "/api/orders", new CreateOrderRequest { ProductId = productId, Quantity = 1 });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Contains("Ekipman kodu", await response.Content.ReadAsStringAsync());
+    }
+
     [Fact]
     public async Task Get_orders_lists_previously_created_orders()
     {
