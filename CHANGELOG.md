@@ -5,6 +5,12 @@ sürümler [Semantic Versioning](https://semver.org/lang/tr/) kurallarına göre
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-03
+
+### Fixed
+
+- order: boş ekipman koduyla talep açılamaz (#2)
+
 ## [1.0.0] - 2026-11-03
 
 ### Added
