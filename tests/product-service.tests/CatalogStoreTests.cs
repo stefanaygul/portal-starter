@@ -1,3 +1,4 @@
+using System.Text.Json;
 using SahaPortal.ProductService.Catalog;
 
 namespace SahaPortal.ProductService.Tests;
@@ -20,5 +21,26 @@ public class CatalogStoreTests
         var catalog = CatalogStore.FromFile(CatalogStore.DefaultPath);
 
         Assert.All(catalog.GetAll(), p => Assert.False(string.IsNullOrWhiteSpace(p.Name)));
+    }
+
+    [Fact]
+    public void Catalog_file_states_the_stock_status_of_every_product()
+    {
+        using var document = JsonDocument.Parse(File.ReadAllText(CatalogStore.DefaultPath));
+
+        // A missing field would silently be read as "not in stock".
+        Assert.All(document.RootElement.EnumerateArray().ToArray(), item =>
+        {
+            var kind = item.GetProperty("inStock").ValueKind;
+            Assert.True(kind is JsonValueKind.True or JsonValueKind.False);
+        });
+    }
+
+    [Fact]
+    public void Catalog_reads_the_stock_status()
+    {
+        var catalog = CatalogStore.FromFile(CatalogStore.DefaultPath);
+
+        Assert.True(catalog.GetAll().Single(p => p.Code == "ADP-01").InStock);
     }
 }
