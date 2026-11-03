@@ -16,7 +16,18 @@ public class ProductsApiTests(WebApplicationFactory<Program> factory)
         var products = await _client.GetFromJsonAsync<List<ProductDto>>("/api/products");
 
         Assert.NotNull(products);
-        Assert.Contains(products, p => p is { Code: "ADP-01", Name: "Terminal adaptörü" });
+        Assert.Contains(products, p => p is { Code: "ADP-01", Name: "Terminal adaptörü", InStock: true });
+    }
+
+    [Fact]
+    public async Task Get_products_reports_items_that_are_out_of_stock()
+    {
+        var json = await _client.GetStringAsync("/api/products");
+        var products = await _client.GetFromJsonAsync<List<ProductDto>>("/api/products");
+
+        Assert.Contains("\"inStock\":false", json);
+        Assert.NotNull(products);
+        Assert.Contains(products, p => p is { Code: "STD-03", InStock: false });
     }
 
     [Fact]
