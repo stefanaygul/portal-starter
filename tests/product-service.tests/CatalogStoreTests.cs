@@ -11,7 +11,7 @@ public class CatalogStoreTests
 
         var codes = catalog.GetAll().Select(p => p.Code).ToArray();
 
-        Assert.Equal(["ADP-01", "KBL-02", "STD-03"], codes);
+        Assert.Equal(["ADP-01", "KBL-02", "STD-03", "SRJ-04"], codes);
     }
 
     [Fact]
