@@ -10,6 +10,7 @@ export default function CatalogList({ products }) {
             <tr>
               <th>Kod</th>
               <th>Ekipman</th>
+              <th>Stok</th>
             </tr>
           </thead>
           <tbody>
@@ -17,6 +18,7 @@ export default function CatalogList({ products }) {
               <tr key={product.code}>
                 <td>{product.code}</td>
                 <td>{product.name}</td>
+                <td>{product.inStock ? 'Stokta' : 'Stokta yok'}</td>
               </tr>
             ))}
           </tbody>
