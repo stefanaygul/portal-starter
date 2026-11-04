@@ -1,5 +1,23 @@
 # deploy/compose.yaml - Saha Ekipman Talep Portalı
 #
-# Bu dosya şimdilik yalnızca bir iskelettir; 3. gün (LAB 03-B) doldurulacak.
-# Üç servisi (product-service, order-service, web-ui), aralarındaki ağı ve
-# taleplerin saklandığı kalıcı veriyi tek dosyada tanımlayacak.
+# IMG, TAG ve WEB_PORT ortamdan ya da bu dosyanın yanındaki .env dosyasından gelir:
+#   IMG=<registry>/<grup>/<ekip>/saha-ekipman-portal   TAG=1.0.1   WEB_PORT=8081
+# Yalnızca web-ui port yayınlar; API'lere Nginx üzerinden /api ile ulaşılır.
+services:
+  product-service:
+    image: ${IMG}/product-service:${TAG}
+
+  order-service:
+    image: ${IMG}/order-service:${TAG}
+    environment:
+      ConnectionStrings__Orders: Data Source=/data/orders.db
+    volumes:
+      - orders-data:/data
+
+  web-ui:
+    image: ${IMG}/web-ui:${TAG}
+    ports: ["${WEB_PORT:-8080}:8080"]
+    depends_on: [product-service, order-service]
+
+volumes:
+  orders-data:
