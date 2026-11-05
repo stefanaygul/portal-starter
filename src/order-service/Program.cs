@@ -23,6 +23,7 @@ app.MapOpenApi();
 app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "order-service v1"));
 app.MapHealthChecks("/health");
 app.MapOrderEndpoints();
+app.MapOrderSummaryEndpoints();
 
 app.Run();
 
