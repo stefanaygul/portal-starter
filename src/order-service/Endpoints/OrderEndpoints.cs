@@ -6,6 +6,8 @@ namespace SahaPortal.OrderService.Endpoints;
 
 public static class OrderEndpoints
 {
+    public const int MinQuantity = 1;
+
     public static IEndpointRouteBuilder MapOrderEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("/api/orders", CreateAsync).WithName("CreateOrder");
@@ -18,6 +20,11 @@ public static class OrderEndpoints
         if (string.IsNullOrWhiteSpace(request.ProductId))
         {
             return Results.BadRequest(new { error = "Ekipman kodu boş olamaz." });
+        }
+
+        if (request.Quantity < MinQuantity)
+        {
+            return Results.BadRequest(new { error = $"Miktar en az {MinQuantity} olmalı." });
         }
 
         var order = new Order

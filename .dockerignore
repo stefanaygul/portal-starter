@@ -1,0 +1,13 @@
+# Build context'e girmeyecekler. .gitignore'dan farkli olarak desenler yalnizca
+# context kokune gore eslesir; alt klasorler icin **/ gerekir.
+.git/
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/coverage/
+**/TestResults/
+**/*.db
+**/*.db-shm
+**/*.db-wal
+.env
