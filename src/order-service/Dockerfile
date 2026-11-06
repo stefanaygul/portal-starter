@@ -3,7 +3,6 @@ ARG MCR=mcr.microsoft.com
 FROM ${MCR}/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY NuGet.config ./
-COPY src/common-contracts/ src/common-contracts/
 COPY src/order-service/*.csproj src/order-service/
 RUN dotnet restore src/order-service
 COPY src/order-service/ src/order-service/

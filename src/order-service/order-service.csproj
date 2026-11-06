@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\common-contracts\common-contracts.csproj" />
+    <PackageReference Include="Saha.Common.Contracts.EkipNN" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
