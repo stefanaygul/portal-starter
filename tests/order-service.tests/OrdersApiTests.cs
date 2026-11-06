@@ -36,6 +36,29 @@ public class OrdersApiTests(OrderApiFactory factory) : IClassFixture<OrderApiFac
         Assert.Contains("Ekipman kodu", await response.Content.ReadAsStringAsync());
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public async Task Post_order_with_quantity_below_one_returns_400(int quantity)
+    {
+        var response = await _client.PostAsJsonAsync(
+            "/api/orders", new CreateOrderRequest { ProductId = "ADP-01", Quantity = quantity });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Contains("Miktar en az 1", await response.Content.ReadAsStringAsync());
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    public async Task Post_order_with_quantity_of_one_or_more_returns_201(int quantity)
+    {
+        var response = await _client.PostAsJsonAsync(
+            "/api/orders", new CreateOrderRequest { ProductId = "KBL-02", Quantity = quantity });
+
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+    }
+
     [Fact]
     public async Task Get_orders_lists_previously_created_orders()
     {
